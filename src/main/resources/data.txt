@@ -1,0 +1,40 @@
+00 | bill the pony  | trotting like a horse         | saddle                      | 0 |  |                                             | saddlebags                     | saddle
+01 | frodo          | hiding under                  | giant log                   | 1 |  |                                             |                                | giant log
+02 | samwise        | stirring pot                  | potatoes                    | 2 |  |                                             |                                | potatoes
+03 | pippin         | knocking over into well       | bucket                      | 3 |  |                                             |                                | bucket
+04 | gandalf        | whispering to butterfly       | staff                       | 4 |  | whispering in another language to butterfly |                                | staff
+05 | legolas        | sliding down stairs on shield | bow                         | 5 |  |                                             |                                | bow
+06 | gimli          | overhead swinging             | axe                         | 6 |  | overhead chopping                           |                                | axe
+07 | boromir        | blowing into                  | horn of gondor              | 7 |  |                                             |                                | horn of gondor
+08 | gollum         | pawing at                     | the one ring                | 8 |  | clawing at                                  |                                | the one ring
+09 | sauron         | staring from a high place     | eye of sauron               | 9 |  |                                             |                                | eye of sauron
+10 | bulbasaur      | growing vines from body       | razor sharp leaves          |   |  |                                             |                                | razor sharp leaves
+11 | charmander     | exhaling                      | stream of fire              |   |  |                                             |                                | stream of fire
+12 | abra           | teleporting away scared       | spoon                       |   |  | teleporting away                            |                                | spoon
+13 | mr. mime       | miming                        | invisible wall              |   |  |                                             |                                | invisible wall
+14 | snorlax        | napping                       | road                        |   |  |                                             |                                | road
+15 | goku           | hands above head              | spirit bomb                 |   |  | holding hands above head                    |                                | spirit bomb
+16 | gohan          | transforming (bigger)         | giant monkey                |   |  |                                             | giant gorilla, monkey, gorilla | giant monkey
+17 | krillin        | frisbee throwing              | destructo disc              |   |  |                                             |                                | destructo disc
+18 | hercule        | giant crazy grin              | champions belt              |   |  | giant grin                                  |                                | champions belt
+19 | master roshi   | lazily reading                | dirty japanese magazine     |   |  |                                             |                                | dirty japanese magazine
+20 | luke skywalker | deflecting blaster shot       | green lightsaber            |   |  |                                             |                                | green lightsaber
+21 | r2-d2          | making robot beeping noises   | hologram                    |   |  | making robot beeping noise                  |                                | hologram
+22 | han solo       | shooting laser blaster        | millennium falcon           |   |  |                                             |                                | millennium falcon
+23 | chewbacca      | ripping part off              | droid arms                  |   |  | ripping apart, ripping arms off             |                                | droid arms
+24 | obi-wan kenobi | collapsing into nothing       | cloak                       |   |  |                                             |                                | cloak
+25 | yoda           | poking disapprovingly         | cane                        |   |  |                                             |                                | cane
+26 | admiral ackbar | frantically shouting          | bear trap                   |   |  |                                             |                                | bear trap
+27 | boba fett      | getting eaten by sarlacc      | jetpack                     |   |  |                                             |                                | jetpack
+28 | darth vader    | heavy breathing               | black helmet                |   |  | difficulty breathing                        |                                | black helmet
+29 | darth maul     | growing horns from head       | double sided red lightsaber |   |  |                                             |                                | double sided red lightsaber
+30 | malfurion      | engangling in                 | vines                       |   |  |                                             |                                | vines
+31 | e.t.c          | playing guitar                | dance party                 |   |  |                                             |                                | dance party
+32 | uther          | hosting                       | a party                     |   |  |                                             |                                | a party
+33 | falstad        | flying on                     | gryphon                     |   |  |                                             |                                | gryphon
+34 | nova           | cloaking                      | sniper rifle                |   |  |                                             |                                | sniper rifle
+35 | tychus         | drop from sky                 | giant mech                  |   |  |                                             |                                | giant mech
+36 | kerrigan       | commanding army               | zerglings                   |   |  |                                             |                                | zerglings
+37 | onyxia         | hatching from egg             | baby dragons                |   |  |                                             |                                | baby dragons
+38 | illidan        | blinking                      | twin blades                 |   |  |                                             |                                | twin blades
+39 | the butcher    | charging like a bull          | giant cleaver               |   |  | getting yanked away                         |                                | giant cleaver
