@@ -241,7 +241,8 @@ public class Quizzer {
             for (String userAnswerToken : userAnswerTokens) {
                 correctWords += possibleAnswerTokens.contains(userAnswerToken.toLowerCase()) ? 1 : 0;
             }
-            if(correctWords > bestCorrectWords) {
+            int newWrongWords = Math.max(possibleAnswerTokens.size(), userAnswerTokens.length) - correctWords;
+            if(correctWords > bestCorrectWords || (correctWords == bestCorrectWords && newWrongWords < wrongWords)) {
                 bestCorrectWords = correctWords;
                 wrongWords = Math.max(possibleAnswerTokens.size(), userAnswerTokens.length) - correctWords;
                 bestMatchedAnswer = possibleAnswerTokens;
