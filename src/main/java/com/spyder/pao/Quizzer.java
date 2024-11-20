@@ -56,7 +56,7 @@ public class Quizzer {
                         case "quiz" -> setQuizType(tokens);
                         case "list" -> listEntities();
                         case "begin", "start" -> quiz();
-                        case "quit" -> System.exit(0);
+                        case "quit", "exit" -> System.exit(0);
                     }
                 }
             }
@@ -139,6 +139,7 @@ public class Quizzer {
         System.out.println("  ANSWER [NUMBER | PERSON | ACTION | OBJECT]");
         System.out.println("  QUIZ [NUMBER | GIVEN]");
         System.out.println("  BEGIN / START");
+        System.out.println("  QUIT / EXIT");
         System.out.println();
 
     }
@@ -172,9 +173,11 @@ public class Quizzer {
             System.out.println();
             System.out.println("Picture for " + console.color(CYAN, number));
             System.out.print("> ");
-            String answer = scanner.nextLine();
-            if ("quit".equalsIgnoreCase(answer)) {
+            String answerText = scanner.nextLine();
+            if ("quit".equalsIgnoreCase(answerText)) {
                 return;
+            } else if("exit".equalsIgnoreCase(answerText)) {
+                System.exit(0);
             }
             System.out.println("Answer: " + console.color(CYAN, fullAnswer));
         }
@@ -218,6 +221,8 @@ public class Quizzer {
 
             if ("quit".equalsIgnoreCase(answerText)) {
                 return;
+            } else if("exit".equalsIgnoreCase(answerText)) {
+                System.exit(0);
             } else if (questionContext.isCorrect()) {
                 String extraText = questionContext.isExactlyCorrect() ? "" : (" " + console.color(CYAN, questionContext.getCorrectAnswer()));
                 System.out.println(console.color(GREEN, "Correct" + extraText + "\n"));
