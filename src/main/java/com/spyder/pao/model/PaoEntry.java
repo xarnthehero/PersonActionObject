@@ -36,6 +36,7 @@ public class PaoEntry {
             case PERSON -> person;
             case ACTION -> action;
             case OBJECT -> object;
+            default -> throw new IllegalArgumentException("Invalid entry type: " + entryType);
         };
     }
 
@@ -45,6 +46,7 @@ public class PaoEntry {
             case PERSON -> getAllPeopleList();
             case ACTION -> getAllActions();
             case OBJECT -> getAllObjects();
+            default -> throw new IllegalArgumentException("Invalid entry type: " + entryType);
         };
     }
 

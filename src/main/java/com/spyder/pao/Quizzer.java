@@ -28,6 +28,8 @@ public class Quizzer {
     private EntryType givenEntryType = EntryType.PERSON;
     private QuizType quizType = QuizType.GIVEN;
 
+    private final List<EntryType> RANDOM_ENTRY_TYPES = Arrays.asList(EntryType.OBJECT, EntryType.ACTION, EntryType.OBJECT);
+
     public Quizzer(DataSource ds) {
         this.random = new Random();
         this.console = new ConsoleColors();
@@ -135,8 +137,8 @@ public class Quizzer {
         System.out.println("\nCommands:");
         System.out.println("  FROM [start number]");
         System.out.println("  TO [end number]");
-        System.out.println("  GIVEN [NUMBER | PERSON | ACTION | OBJECT]");
-        System.out.println("  ANSWER [NUMBER | PERSON | ACTION | OBJECT]");
+        System.out.println("  GIVEN [NUMBER | PERSON | ACTION | OBJECT | RANDOM]");
+        System.out.println("  ANSWER [NUMBER | PERSON | ACTION | OBJECT | RANDOM]");
         System.out.println("  QUIZ [NUMBER | GIVEN]");
         System.out.println("  BEGIN / START");
         System.out.println("  QUIT / EXIT");
@@ -197,27 +199,39 @@ public class Quizzer {
         Collections.shuffle(entries);
         System.out.println();
         int questionsAskedInCurrentSet = 0;
+
+
+
+
         while (true) {
             questionsAskedInCurrentSet = questionsAskedInCurrentSet % entries.size();
             if(questionsAskedInCurrentSet == 0) {
                 Collections.shuffle(entries);
             }
+
+            EntryType questionGivenEntryType = givenEntryType;
+            EntryType questionAnswerEntryType = answerEntryType;
+            if(questionGivenEntryType == EntryType.RANDOM) {
+                questionGivenEntryType = getRandomEntryType();
+            }
+            if(questionAnswerEntryType == EntryType.RANDOM) {
+                questionAnswerEntryType = getRandomEntryType();
+            }
+
             PaoEntry entry = entries.get(questionsAskedInCurrentSet);
-            String t1Word = answerEntryType.name();
-            String t1Value = entry.getValue(answerEntryType);
-            String t2Word = givenEntryType.name();
-            String t2Value = entry.getValue(givenEntryType);
+            String t1Word = questionAnswerEntryType.name();
+            String t1Value = entry.getValue(questionAnswerEntryType);
+            String t2Word = questionGivenEntryType.name();
+            String t2Value = entry.getValue(questionGivenEntryType);
             System.out.print(t1Word + " for " + t2Word + " " + console.color(CYAN, t2Value) + ": ");
             String answerText = scanner.nextLine();
 
             QuestionContext questionContext = new QuestionContext();
-            questionContext.setCorrectAnswer(entry.getValue(answerEntryType));
-            questionContext.setEntry(givenEntryType, entry);
-            questionContext.setEntry(answerEntryType, entry);
+            questionContext.setCorrectAnswer(entry.getValue(questionAnswerEntryType));
+            questionContext.setEntry(questionGivenEntryType, entry);
+            questionContext.setEntry(questionAnswerEntryType, entry);
             questionContext.setUserAnswerText(answerText);
-            validateAnswer(questionContext);
-
-
+            validateAnswer(questionContext, questionAnswerEntryType);
 
             if ("quit".equalsIgnoreCase(answerText)) {
                 return;
@@ -233,8 +247,12 @@ public class Quizzer {
         }
     }
 
-    private void validateAnswer(QuestionContext questionContext) {
-        List<String> answerList = questionContext.getEntry(answerEntryType).getAllByType(answerEntryType);
+    private EntryType getRandomEntryType() {
+        return RANDOM_ENTRY_TYPES.get(random.nextInt(RANDOM_ENTRY_TYPES.size()));
+    }
+
+    private void validateAnswer(QuestionContext questionContext, EntryType answerType) {
+        List<String> answerList = questionContext.getEntry(answerType).getAllByType(answerType);
         int bestCorrectWords = -1;
         int wrongWords = 0;
         String[] userAnswerTokens = questionContext.getUserAnswerText().split(" ");
@@ -275,6 +293,9 @@ public class Quizzer {
         private PaoEntry person;
         private PaoEntry action;
         private PaoEntry object;
+        // randomXxxxxType is set on a question by question basis and is used temporarily to know what type we are looking at right now.
+        private EntryType randomQuestionType;
+        private EntryType randomAnswerType;
         private String userAnswerText;
         private boolean correct;
         private boolean exactlyCorrect;
