@@ -1,7 +1,7 @@
 package com.spyder.pao;
 
 import com.spyder.pao.model.PaoEntry;
-import com.spyder.pao.model.Type;
+import com.spyder.pao.model.EntryType;
 import lombok.Data;
 import lombok.SneakyThrows;
 
@@ -24,8 +24,8 @@ public class Quizzer {
 
     private int minEntry = 0;
     private int maxEntry = 9;
-    private Type answerType = Type.NUMBER;
-    private Type givenType = Type.PERSON;
+    private EntryType answerEntryType = EntryType.NUMBER;
+    private EntryType givenEntryType = EntryType.PERSON;
     private QuizType quizType = QuizType.GIVEN;
 
     public Quizzer(DataSource ds) {
@@ -79,8 +79,8 @@ public class Quizzer {
                     switch (key) {
                         case FROM -> minEntry = Integer.parseInt(tokens[1]);
                         case TO -> maxEntry = Integer.parseInt(tokens[1]);
-                        case GIVEN -> givenType = Type.valueOf(tokens[1]);
-                        case ANSWER -> answerType = Type.valueOf(tokens[1]);
+                        case GIVEN -> givenEntryType = EntryType.valueOf(tokens[1]);
+                        case ANSWER -> answerEntryType = EntryType.valueOf(tokens[1]);
                         case QUIZ -> quizType = QuizType.valueOf(tokens[1]);
                     }
                 } catch(IllegalArgumentException e) {
@@ -96,8 +96,8 @@ public class Quizzer {
         FileWriter myWriter = new FileWriter(stateFileLocation());
         myWriter.write(PropertyKey.FROM.name() + "=" + minEntry + "\n");
         myWriter.write(PropertyKey.TO.name() + "=" + maxEntry + "\n");
-        myWriter.write(PropertyKey.GIVEN.name() + "=" + givenType.name() + "\n");
-        myWriter.write(PropertyKey.ANSWER.name() + "=" + answerType.name() + "\n");
+        myWriter.write(PropertyKey.GIVEN.name() + "=" + givenEntryType.name() + "\n");
+        myWriter.write(PropertyKey.ANSWER.name() + "=" + answerEntryType.name() + "\n");
         myWriter.write(PropertyKey.QUIZ.name() + "=" + quizType.name() + "\n");
         myWriter.close();
     }
@@ -111,11 +111,11 @@ public class Quizzer {
     }
 
     private void setGiven(String[] tokens) {
-        givenType = Type.valueOf(tokens[1].toUpperCase());
+        givenEntryType = EntryType.valueOf(tokens[1].toUpperCase());
     }
 
     private void setAnswer(String[] tokens) {
-        answerType = Type.valueOf(tokens[1].toUpperCase());
+        answerEntryType = EntryType.valueOf(tokens[1].toUpperCase());
     }
 
     private void setQuizType(String[] tokens) {
@@ -145,7 +145,7 @@ public class Quizzer {
     }
 
     private String currentState() {
-        return "quiz " + quizType.name() + ", given " + givenType.name() + ", answer " + answerType.name() + ", " + minEntry + ".." + maxEntry;
+        return "quiz " + quizType.name() + ", given " + givenEntryType.name() + ", answer " + answerEntryType.name() + ", " + minEntry + ".." + maxEntry;
     }
 
     private List<PaoEntry> getEntries() {
@@ -203,17 +203,17 @@ public class Quizzer {
                 Collections.shuffle(entries);
             }
             PaoEntry entry = entries.get(questionsAskedInCurrentSet);
-            String t1Word = answerType.name();
-            String t1Value = entry.getValue(answerType);
-            String t2Word = givenType.name();
-            String t2Value = entry.getValue(givenType);
+            String t1Word = answerEntryType.name();
+            String t1Value = entry.getValue(answerEntryType);
+            String t2Word = givenEntryType.name();
+            String t2Value = entry.getValue(givenEntryType);
             System.out.print(t1Word + " for " + t2Word + " " + console.color(CYAN, t2Value) + ": ");
             String answerText = scanner.nextLine();
 
             QuestionContext questionContext = new QuestionContext();
-            questionContext.setCorrectAnswer(entry.getValue(answerType));
-            questionContext.setEntry(givenType, entry);
-            questionContext.setEntry(answerType, entry);
+            questionContext.setCorrectAnswer(entry.getValue(answerEntryType));
+            questionContext.setEntry(givenEntryType, entry);
+            questionContext.setEntry(answerEntryType, entry);
             questionContext.setUserAnswerText(answerText);
             validateAnswer(questionContext);
 
@@ -234,7 +234,7 @@ public class Quizzer {
     }
 
     private void validateAnswer(QuestionContext questionContext) {
-        List<String> answerList = questionContext.getEntry(answerType).getAllByType(answerType);
+        List<String> answerList = questionContext.getEntry(answerEntryType).getAllByType(answerEntryType);
         int bestCorrectWords = -1;
         int wrongWords = 0;
         String[] userAnswerTokens = questionContext.getUserAnswerText().split(" ");
@@ -280,8 +280,8 @@ public class Quizzer {
         private boolean exactlyCorrect;
         private String correctAnswer;
 
-        public void setEntry(Type type, PaoEntry entity) {
-            switch (type) {
+        public void setEntry(EntryType entryType, PaoEntry entity) {
+            switch (entryType) {
                 case NUMBER -> number = entity;
                 case PERSON -> person = entity;
                 case ACTION -> action = entity;
@@ -289,12 +289,13 @@ public class Quizzer {
             }
         }
 
-        public PaoEntry getEntry(Type type) {
-            return switch (type) {
+        public PaoEntry getEntry(EntryType entryType) {
+            return switch (entryType) {
                 case NUMBER -> number;
                 case PERSON -> person;
                 case ACTION -> action;
                 case OBJECT -> object;
+                default -> throw new IllegalArgumentException("Invalid type: " + entryType);
             };
         }
     }

@@ -30,8 +30,8 @@ public class PaoEntry {
         return Integer.parseInt(numberStr);
     }
 
-    public String getValue(Type type) {
-        return switch (type) {
+    public String getValue(EntryType entryType) {
+        return switch (entryType) {
             case NUMBER -> numberStr;
             case PERSON -> person;
             case ACTION -> action;
@@ -39,8 +39,8 @@ public class PaoEntry {
         };
     }
 
-    public List<String> getAllByType(Type type) {
-        return switch (type) {
+    public List<String> getAllByType(EntryType entryType) {
+        return switch (entryType) {
             case NUMBER -> getAllNumbers();
             case PERSON -> getAllPeopleList();
             case ACTION -> getAllActions();

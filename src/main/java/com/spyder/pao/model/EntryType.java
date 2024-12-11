@@ -1,8 +1,9 @@
 package com.spyder.pao.model;
 
-public enum Type {
+public enum EntryType {
     NUMBER,
     PERSON,
     ACTION,
-    OBJECT
+    OBJECT,
+    RANDOM
 }
