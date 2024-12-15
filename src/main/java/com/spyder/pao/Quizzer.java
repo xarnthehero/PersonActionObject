@@ -28,7 +28,7 @@ public class Quizzer {
     private EntryType givenEntryType = EntryType.PERSON;
     private QuizType quizType = QuizType.GIVEN;
 
-    private final List<EntryType> RANDOM_ENTRY_TYPES = Arrays.asList(EntryType.OBJECT, EntryType.ACTION, EntryType.OBJECT);
+    private final List<EntryType> RANDOM_ENTRY_TYPES = Arrays.asList(EntryType.PERSON, EntryType.ACTION, EntryType.OBJECT);
 
     public Quizzer(DataSource ds) {
         this.random = new Random();
