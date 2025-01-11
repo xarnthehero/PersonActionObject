@@ -57,7 +57,7 @@ public class Quizzer {
                         case "answer" -> setAnswer(tokens);
                         case "quiz" -> setQuizType(tokens);
                         case "list" -> listEntities();
-                        case "begin", "start" -> quiz();
+                        case "begin", "b", "start" -> quiz();
                         case "quit", "exit" -> System.exit(0);
                     }
                 }
