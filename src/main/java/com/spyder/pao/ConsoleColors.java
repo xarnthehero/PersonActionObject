@@ -12,7 +12,7 @@ public class ConsoleColors {
     public static final String CYAN = "\u001B[36m";
     public static final String WHITE = "\u001B[37m";
 
-    public String color(String color, String text) {
+    public static String color(String color, String text) {
         return color + text + RESET;
     }
 

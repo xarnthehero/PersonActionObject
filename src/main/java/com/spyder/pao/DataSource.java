@@ -1,6 +1,7 @@
 package com.spyder.pao;
 
 import com.spyder.pao.model.PaoEntry;
+import com.spyder.pao.model.QuizConfiguration;
 import lombok.SneakyThrows;
 
 import java.io.BufferedReader;
@@ -10,6 +11,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class DataSource {
 
@@ -31,8 +33,16 @@ public class DataSource {
         entries.add(entry);
     }
 
-    public List<PaoEntry> getEntries() {
+    private List<PaoEntry> getEntries() {
         return new ArrayList<>(entries);
+    }
+
+    public List<PaoEntry> getEntries(QuizConfiguration quizConfiguration) {
+        return getEntries().stream()
+                .filter(paoEntry -> paoEntry.getNumber() >= quizConfiguration.getMinEntry()
+                        && paoEntry.getNumber() <= quizConfiguration.getMaxEntry()
+                )
+                .collect(Collectors.toList());
     }
 
     public static DataSource createAndLoad() {
