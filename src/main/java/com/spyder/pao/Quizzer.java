@@ -74,7 +74,7 @@ public class Quizzer {
     private void loadState() {
         try (BufferedReader br = new BufferedReader(new FileReader(stateFileLocation()))) {
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 String[] tokens = line.split("=");
                 try {
                     PropertyKey key = PropertyKey.valueOf(tokens[0]);
@@ -85,7 +85,7 @@ public class Quizzer {
                         case ANSWER -> answerEntryType = EntryType.valueOf(tokens[1]);
                         case QUIZ -> quizType = QuizType.valueOf(tokens[1]);
                     }
-                } catch(IllegalArgumentException e) {
+                } catch (IllegalArgumentException e) {
                     System.out.println("[WARN] No PropertyKey for value " + tokens[0]);
                 }
             }
@@ -124,13 +124,20 @@ public class Quizzer {
         String inputQuizType = tokens[1];
         try {
             quizType = QuizType.valueOf(inputQuizType.toUpperCase());
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Quiz type not found - " + inputQuizType);
         }
     }
 
     private void listEntities() {
-        getEntries().forEach(paoEntry -> System.out.println(String.join("  ", paoEntry.getNumberStr(), paoEntry.getPerson(), paoEntry.getAction(), paoEntry.getObject())));
+        getEntries().forEach(paoEntry -> System.out.println(
+                        String.join(" | ",
+                                paoEntry.getNumberStr(),
+                                console.color(CYAN, paoEntry.getPerson()),
+                                console.color(GREEN, paoEntry.getAction()),
+                                console.color(PURPLE, paoEntry.getObject()))
+                )
+        );
     }
 
     private void help() {
@@ -178,7 +185,7 @@ public class Quizzer {
             String answerText = scanner.nextLine();
             if ("quit".equalsIgnoreCase(answerText)) {
                 return;
-            } else if("exit".equalsIgnoreCase(answerText)) {
+            } else if ("exit".equalsIgnoreCase(answerText)) {
                 System.exit(0);
             }
             System.out.println("Answer: " + console.color(CYAN, fullAnswer));
@@ -201,20 +208,18 @@ public class Quizzer {
         int questionsAskedInCurrentSet = 0;
 
 
-
-
         while (true) {
             questionsAskedInCurrentSet = questionsAskedInCurrentSet % entries.size();
-            if(questionsAskedInCurrentSet == 0) {
+            if (questionsAskedInCurrentSet == 0) {
                 Collections.shuffle(entries);
             }
 
             EntryType questionGivenEntryType = givenEntryType;
             EntryType questionAnswerEntryType = answerEntryType;
-            if(questionGivenEntryType == EntryType.RANDOM) {
+            if (questionGivenEntryType == EntryType.RANDOM) {
                 questionGivenEntryType = getRandomEntryType();
             }
-            if(questionAnswerEntryType == EntryType.RANDOM) {
+            if (questionAnswerEntryType == EntryType.RANDOM) {
                 questionAnswerEntryType = getRandomEntryType();
             }
 
@@ -235,7 +240,7 @@ public class Quizzer {
 
             if ("quit".equalsIgnoreCase(answerText)) {
                 return;
-            } else if("exit".equalsIgnoreCase(answerText)) {
+            } else if ("exit".equalsIgnoreCase(answerText)) {
                 System.exit(0);
             } else if (questionContext.isCorrect()) {
                 String extraText = questionContext.isExactlyCorrect() ? "" : (" " + console.color(CYAN, questionContext.getCorrectAnswer()));
@@ -258,14 +263,14 @@ public class Quizzer {
         String[] userAnswerTokens = questionContext.getUserAnswerText().split(" ");
         List<String> bestMatchedAnswer = Collections.emptyList();
 
-        for(String possibleAnswer : answerList) {
+        for (String possibleAnswer : answerList) {
             List<String> possibleAnswerTokens = Arrays.asList(possibleAnswer.split(" "));
             int correctWords = 0;
             for (String userAnswerToken : userAnswerTokens) {
                 correctWords += possibleAnswerTokens.contains(userAnswerToken.toLowerCase()) ? 1 : 0;
             }
             int newWrongWords = Math.max(possibleAnswerTokens.size(), userAnswerTokens.length) - correctWords;
-            if(correctWords > bestCorrectWords || (correctWords == bestCorrectWords && newWrongWords < wrongWords)) {
+            if (correctWords > bestCorrectWords || (correctWords == bestCorrectWords && newWrongWords < wrongWords)) {
                 bestCorrectWords = correctWords;
                 wrongWords = Math.max(possibleAnswerTokens.size(), userAnswerTokens.length) - correctWords;
                 bestMatchedAnswer = possibleAnswerTokens;
