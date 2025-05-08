@@ -8,7 +8,7 @@ import static com.spyder.pao.ConsoleColors.*;
 
 public class GivenQuiz {
 
-    private final List<EntryType> RANDOM_ENTRY_TYPES = Arrays.asList(EntryType.PERSON, EntryType.ACTION, EntryType.OBJECT);
+    private final List<EntryType> RANDOM_ENTRY_TYPES = Arrays.asList(EntryType.PERSON, EntryType.ACTION, EntryType.OBJECT, EntryType.NUMBER);
     private final Random random;
     private final Scanner stdInScanner;
 
@@ -42,10 +42,10 @@ public class GivenQuiz {
             EntryType questionGivenEntryType = config.getGivenEntryType();
             EntryType questionAnswerEntryType = config.getAnswerEntryType();
             if (questionGivenEntryType == EntryType.RANDOM) {
-                questionGivenEntryType = getRandomEntryType();
+                questionGivenEntryType = getRandomEntryType(null);
             }
             if (questionAnswerEntryType == EntryType.RANDOM) {
-                questionAnswerEntryType = getRandomEntryType();
+                questionAnswerEntryType = getRandomEntryType(questionGivenEntryType);
             }
 
             PaoEntry entry = entries.get(questionsAskedInCurrentSet);
@@ -108,11 +108,15 @@ public class GivenQuiz {
         int allowedWordsWrong = bestMatchedAnswer.size() > 2 ? 1 : 0;
 
         questionContext.setCorrect(wrongWords <= allowedWordsWrong);
-        questionContext.setExactlyCorrect(questionContext.getUserAnswerText().equalsIgnoreCase(answerList.get(0)));
+        questionContext.setExactlyCorrect(questionContext.getUserAnswerText().equalsIgnoreCase(answerList.getFirst()));
     }
 
-    private EntryType getRandomEntryType() {
-        return RANDOM_ENTRY_TYPES.get(random.nextInt(RANDOM_ENTRY_TYPES.size()));
+    private EntryType getRandomEntryType(EntryType excludingType) {
+        List<EntryType> entries = RANDOM_ENTRY_TYPES;
+        if(excludingType != null) {
+            entries = entries.stream().filter(entryType -> entryType != excludingType).toList();
+        }
+        return entries.get(random.nextInt(entries.size()));
     }
 
 }
