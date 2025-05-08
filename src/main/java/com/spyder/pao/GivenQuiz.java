@@ -1,9 +1,6 @@
 package com.spyder.pao;
 
-import com.spyder.pao.model.EntryType;
-import com.spyder.pao.model.PaoEntry;
-import com.spyder.pao.model.QuestionContext;
-import com.spyder.pao.model.QuizConfiguration;
+import com.spyder.pao.model.*;
 
 import java.util.*;
 
@@ -66,11 +63,17 @@ public class GivenQuiz {
             questionContext.setUserAnswerText(answerText);
             validateAnswer(questionContext, questionAnswerEntryType);
 
-            if ("quit".equalsIgnoreCase(answerText)) {
-                return;
-            } else if ("exit".equalsIgnoreCase(answerText)) {
-                System.exit(0);
-            } else if (questionContext.isCorrect()) {
+            // Handle if user types a quit command as an answer
+            Command command = Command.getCommand(answerText);
+            switch (command) {
+                case QUIT -> {
+                    return;
+                }
+                case EXIT -> System.exit(0);
+                case null, default -> { }
+            }
+
+            if (questionContext.isCorrect()) {
                 String extraText = questionContext.isExactlyCorrect() ? "" : (" " + color(CYAN, questionContext.getCorrectAnswer()));
                 System.out.println(color(GREEN, "Correct" + extraText));
             } else {

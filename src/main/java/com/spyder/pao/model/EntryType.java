@@ -6,4 +6,13 @@ public enum EntryType {
     ACTION,
     OBJECT,
     RANDOM
+    ;
+
+    public static EntryType valueOfNullable(String value) {
+        try {
+            return EntryType.valueOf(value);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.spyder.pao;
 
+import com.spyder.pao.model.Command;
 import com.spyder.pao.model.PaoEntry;
 import com.spyder.pao.model.QuizConfiguration;
 
@@ -32,11 +33,17 @@ public class NumberQuiz {
             System.out.println("Picture for " + color(CYAN, number));
             System.out.print("> ");
             String answerText = stdInScanner.nextLine();
-            if ("quit".equalsIgnoreCase(answerText)) {
-                return;
-            } else if ("exit".equalsIgnoreCase(answerText)) {
-                System.exit(0);
+
+            // Handle if user types a quit command as an answer
+            Command command = Command.getCommand(answerText);
+            switch (command) {
+                case QUIT -> {
+                    return;
+                }
+                case EXIT -> System.exit(0);
+                case null, default -> { }
             }
+
             System.out.println("Answer: " + color(CYAN, fullAnswer));
         }
     }
