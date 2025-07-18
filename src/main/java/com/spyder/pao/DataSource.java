@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class DataSource {
 
-    public static final String RESOURCES_DIR = "/mnt/c/Users/726079/Repository/Other/PersonActionObject/src/main/resources";
+    public static final String RESOURCES_DIR = "src/main/resources";
 
     private static final String DELIMITER= "|";
     private static final String DELIMITER_REGEX = "\\|";
