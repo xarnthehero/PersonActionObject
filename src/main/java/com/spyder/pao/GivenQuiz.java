@@ -53,7 +53,7 @@ public class GivenQuiz {
             String t1Value = entry.getValue(questionAnswerEntryType);
             String t2Word = questionGivenEntryType.name();
             String t2Value = entry.getValue(questionGivenEntryType);
-            System.out.print(t1Word + " for " + t2Word + " " + color(CYAN, t2Value) + ": ");
+            System.out.print(color(PURPLE, t1Word) + " for " + color(CYAN, t2Word + " " + t2Value) + ": ");
             String answerText = stdInScanner.nextLine();
 
             QuestionContext questionContext = new QuestionContext();
