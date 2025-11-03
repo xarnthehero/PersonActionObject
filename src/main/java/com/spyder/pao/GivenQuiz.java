@@ -17,7 +17,7 @@ public class GivenQuiz {
         this.stdInScanner = stdInScanner;
     }
 
-    public void beginQuiz(QuizConfiguration config, DataSource ds) {
+    public void beginQuiz(QuizConfiguration config, DataSource ds, int timerMinutes) {
         if (config.getMaxEntry() - config.getMinEntry() < 1) {
             System.out.println("Invalid min / max");
             return;
@@ -31,6 +31,12 @@ public class GivenQuiz {
         Collections.shuffle(entries);
         System.out.println();
         int questionsAskedInCurrentSet = 0;
+
+        QuizStatistics stats = new QuizStatistics();
+        if (timerMinutes > 0) {
+            stats.startTimer();
+            System.out.println("Timer started: " + timerMinutes + " minute" + (timerMinutes == 1 ? "" : "s"));
+        }
 
 
         while (true) {
@@ -73,12 +79,22 @@ public class GivenQuiz {
                 case null, default -> { }
             }
 
+            // Record statistics
+            stats.recordAnswer(questionContext.isCorrect());
+
             if (questionContext.isCorrect()) {
                 String extraText = questionContext.isExactlyCorrect() ? "" : (" " + color(CYAN, questionContext.getCorrectAnswer()));
                 System.out.println(color(GREEN, "Correct" + extraText));
             } else {
                 System.out.println(color(RED, "Wrong:   " + t2Value + " has " + t1Word + " ") + color(CYAN, t1Value));
             }
+
+            // Check if timer has expired
+            if (stats.hasTimerExpired(timerMinutes)) {
+                stats.printSummary();
+                return;
+            }
+
             System.out.println(System.lineSeparator());
             questionsAskedInCurrentSet++;
         }

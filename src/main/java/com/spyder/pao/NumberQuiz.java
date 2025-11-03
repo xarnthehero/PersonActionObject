@@ -3,6 +3,7 @@ package com.spyder.pao;
 import com.spyder.pao.model.Command;
 import com.spyder.pao.model.PaoEntry;
 import com.spyder.pao.model.QuizConfiguration;
+import com.spyder.pao.model.QuizStatistics;
 
 import java.util.List;
 import java.util.Random;
@@ -21,8 +22,15 @@ public class NumberQuiz {
         this.stdInScanner = stdInScanner;
     }
 
-    public void beginQuiz(QuizConfiguration config, DataSource ds) {
+    public void beginQuiz(QuizConfiguration config, DataSource ds, int timerMinutes) {
         List<PaoEntry> entries = ds.getEntries(config);
+
+        QuizStatistics stats = new QuizStatistics();
+        if (timerMinutes > 0) {
+            stats.startTimer();
+            System.out.println("Timer started: " + timerMinutes + " minute" + (timerMinutes == 1 ? "" : "s"));
+        }
+
         while (true) {
             PaoEntry person = entries.get(random.nextInt(entries.size()));
             PaoEntry action = entries.get(random.nextInt(entries.size()));
@@ -45,6 +53,15 @@ public class NumberQuiz {
             }
 
             System.out.println("Answer: " + color(CYAN, fullAnswer));
+
+            // For NumberQuiz, we just increment total (no automated correct/wrong tracking)
+            stats.recordAnswer(false);
+
+            // Check if timer has expired
+            if (stats.hasTimerExpired(timerMinutes)) {
+                stats.printSummary();
+                return;
+            }
         }
     }
 }

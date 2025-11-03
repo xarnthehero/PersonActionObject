@@ -15,6 +15,7 @@ public enum Command {
     QUIZ_TYPE("quiz"),
     GIVEN("given"),
     ANSWER("answer"),
+    TIMER("timer"),
     BEGIN_QUIZ(new String[] {"begin", "b", "start"}),
     ;
 

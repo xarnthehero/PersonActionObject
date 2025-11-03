@@ -24,6 +24,7 @@ public class CLIRunner {
 
     private final QuizConfiguration quizConfiguration;
     private QuizType quizType = QuizType.GIVEN;
+    private int timerMinutes = 0; // 0 means timer is off
 
     public CLIRunner(DataSource ds) {
         this.ds = ds;
@@ -59,6 +60,7 @@ public class CLIRunner {
                             );
                         }
                         case QUIZ_TYPE -> setQuizType(tokens);
+                        case TIMER -> setTimer(tokens);
                         case LIST -> listEntities();
                         case BEGIN_QUIZ -> quiz();
                         case QUIT, EXIT -> System.exit(0);
@@ -88,6 +90,7 @@ public class CLIRunner {
                         case GIVEN -> quizConfiguration.setGivenEntryType(EntryType.valueOf(tokens[1]));
                         case ANSWER -> quizConfiguration.setAnswerEntryType(EntryType.valueOf(tokens[1]));
                         case QUIZ -> quizType = QuizType.valueOf(tokens[1]);
+                        case TIMER -> timerMinutes = Integer.parseInt(tokens[1]);
                     }
                 } catch (IllegalArgumentException e) {
                     System.out.println("[WARN] No PropertyKey for value " + tokens[0]);
@@ -106,7 +109,8 @@ public class CLIRunner {
                 PropertyKey.TO.name() + "=" + quizConfiguration.getMaxEntry(),
                 PropertyKey.GIVEN.name() + "=" + quizConfiguration.getGivenEntryType(),
                 PropertyKey.ANSWER.name() + "=" + quizConfiguration.getAnswerEntryType(),
-                PropertyKey.QUIZ.name() + "=" + quizType.name()
+                PropertyKey.QUIZ.name() + "=" + quizType.name(),
+                PropertyKey.TIMER.name() + "=" + timerMinutes
         );
         myWriter.write(configOutput + System.lineSeparator());
         myWriter.close();
@@ -118,6 +122,26 @@ public class CLIRunner {
             quizType = QuizType.valueOf(inputQuizType.toUpperCase());
         } catch (IllegalArgumentException e) {
             System.out.println("Quiz type not found - " + inputQuizType);
+        }
+    }
+
+    private void setTimer(String[] tokens) {
+        String timerValue = tokens[1].toLowerCase();
+        if ("off".equals(timerValue)) {
+            timerMinutes = 0;
+            System.out.println("Timer disabled");
+        } else {
+            try {
+                timerMinutes = Integer.parseInt(timerValue);
+                if (timerMinutes < 0) {
+                    System.out.println("Timer must be a positive number or 'off'");
+                    timerMinutes = 0;
+                } else {
+                    System.out.println("Timer set to " + timerMinutes + " minute" + (timerMinutes == 1 ? "" : "s"));
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid timer value - use a number or 'off'");
+            }
         }
     }
 
@@ -142,6 +166,7 @@ Commands:
   GIVEN [NUMBER | PERSON | ACTION | OBJECT | RANDOM]
   ANSWER [NUMBER | PERSON | ACTION | OBJECT | RANDOM]
   QUIZ [NUMBER | GIVEN]
+  TIMER [minutes | off]
   BEGIN / START
   QUIT / EXIT
                 """
@@ -149,24 +174,26 @@ Commands:
     }
 
     private String currentState() {
+        String timerStr = timerMinutes > 0 ? timerMinutes + " min" : "off";
         return "quiz " + quizType.name()
-                + ", given " + quizConfiguration.getGivenEntryType().name() 
+                + ", given " + quizConfiguration.getGivenEntryType().name()
                 + ", answer " + quizConfiguration.getAnswerEntryType().name()
-                + ", " + quizConfiguration.getMinEntry() + ".." + quizConfiguration.getMaxEntry();
+                + ", " + quizConfiguration.getMinEntry() + ".." + quizConfiguration.getMaxEntry()
+                + ", timer " + timerStr;
     }
 
     public void quiz() {
         writeState();
         switch (quizType) {
-            case NUMBER -> numberQuiz.beginQuiz(quizConfiguration, ds);
-            case GIVEN -> givenQuiz.beginQuiz(quizConfiguration, ds);
+            case NUMBER -> numberQuiz.beginQuiz(quizConfiguration, ds, timerMinutes);
+            case GIVEN -> givenQuiz.beginQuiz(quizConfiguration, ds, timerMinutes);
         }
     }
 
 
 
     private enum PropertyKey {
-        FROM, TO, GIVEN, ANSWER, QUIZ
+        FROM, TO, GIVEN, ANSWER, QUIZ, TIMER
     }
 
     private enum QuizType {
