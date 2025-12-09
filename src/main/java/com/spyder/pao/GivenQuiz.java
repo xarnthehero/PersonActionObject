@@ -8,7 +8,7 @@ import static com.spyder.pao.ConsoleColors.*;
 
 public class GivenQuiz {
 
-    private final List<EntryType> RANDOM_ENTRY_TYPES = Arrays.asList(EntryType.PERSON, EntryType.ACTION, EntryType.OBJECT, EntryType.NUMBER);
+    private final List<EntryType> RANDOM_ENTRY_TYPES = Arrays.asList(EntryType.PERSON, EntryType.ACTION, EntryType.OBJECT);
     private final Random random;
     private final Scanner stdInScanner;
 
@@ -86,7 +86,7 @@ public class GivenQuiz {
                 String extraText = questionContext.isExactlyCorrect() ? "" : (" " + color(CYAN, questionContext.getCorrectAnswer()));
                 System.out.println(color(GREEN, "Correct" + extraText));
             } else {
-                System.out.println(color(RED, "Wrong:   " + t2Value + " has " + t1Word + " ") + color(CYAN, t1Value));
+                System.out.printf(color(RED, "Wrong:   [%s] %s has %s ") + color(CYAN, t1Value) + "%n", entry.getNumberStr(), t2Value, t1Word);
             }
 
             // Check if timer has expired
@@ -101,10 +101,30 @@ public class GivenQuiz {
     }
 
     private void validateAnswer(QuestionContext questionContext, EntryType answerType) {
+        String userInput = questionContext.getUserAnswerText();
+        String[] userInputTokens = userInput.split(" ");
+        
+        // Check if first token is a number and validate it if so
+        boolean numberCorrect = true;
+        String answerTextForValidation = userInput;
+        
+        if (userInputTokens.length > 0 && userInputTokens[0].matches("\\d+")) {
+            // First token is a number, validate it
+            String userNumber = userInputTokens[0];
+            String expectedNumber = questionContext.getEntry(answerType).getNumberStr();
+            numberCorrect = userNumber.equals(expectedNumber);
+            
+            // Use remaining tokens as the answer (if answer type is not NUMBER)
+            if (answerType != EntryType.NUMBER && userInputTokens.length > 1) {
+                answerTextForValidation = String.join(" ", Arrays.copyOfRange(userInputTokens, 1, userInputTokens.length));
+            }
+        }
+        
+        // Validate the entity answer
         List<String> answerList = questionContext.getEntry(answerType).getAllByType(answerType);
         int bestCorrectWords = -1;
         int wrongWords = 0;
-        String[] userAnswerTokens = questionContext.getUserAnswerText().split(" ");
+        String[] userAnswerTokens = answerTextForValidation.split(" ");
         List<String> bestMatchedAnswer = Collections.emptyList();
 
         for (String possibleAnswer : answerList) {
@@ -123,8 +143,9 @@ public class GivenQuiz {
         // Allow one word wrong if the answer is longer, probably got the gist of it
         int allowedWordsWrong = bestMatchedAnswer.size() > 2 ? 1 : 0;
 
-        questionContext.setCorrect(wrongWords <= allowedWordsWrong);
-        questionContext.setExactlyCorrect(questionContext.getUserAnswerText().equalsIgnoreCase(answerList.getFirst()));
+        boolean entityCorrect = wrongWords <= allowedWordsWrong;
+        questionContext.setCorrect(numberCorrect && entityCorrect);
+        questionContext.setExactlyCorrect(answerTextForValidation.equalsIgnoreCase(answerList.getFirst()));
     }
 
     private EntryType getRandomEntryType(EntryType excludingType) {
