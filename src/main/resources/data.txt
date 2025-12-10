@@ -1,60 +1,60 @@
-"00|Bill the Pony|trotting like a horse|saddle|0|bill||saddlebags
-01|Frodo|hiding under|giant log|1|||
-02|Samwise|stirring pot|potatoes|2|sam|cooking|
-03|Pippin|knocking over into well|bucket|3|||
-04|Gandalf|whispering to butterfly|staff|4||whispering in another language to butterfly|
-05|Legolas|sliding down stairs on shield|bow|5|||
-06|Gimli|overhead swinging|axe|6||overhead chopping|
-07|Boromir|blowing into|Horn of Gondor|7|||
-08|Gollum|pawing at|the One Ring|8||clawing at|
-09|Sauron|staring from a high place|Eye of Sauron|9|||
-10|Bulbasaur|growing vines from body|razor sharp leaves||||
-11|Charmander|exhaling|stream of fire||||
-12|Abra|teleporting away scared|spoon|||teleporting away|
-13|Mr. Mime|miming|invisible wall||Mr Mime||
-14|Snorlax|napping|road||||
-15|Goku|hands above head|spirit bomb|||holding hands above head|
-16|Gohan|transforming (bigger)|giant monkey||||giant gorilla, monkey, gorilla
-17|Krillin|frisbee throwing|destructo disc||||destructo disk
-18|Hercule|giant crazy grin|champions belt|||giant grin|
-19|Master Roshi|lazily reading|dirty japanese magazine||||
-20|Luke Skywalker|deflecting blaster shot|green lightsaber||||
-21|R2-D2|making robot beeping noises|hologram|||making robot beeping noise|
-22|Han Solo|shooting laser blaster|millennium falcon||||
-23|Chewbacca|ripping part off|droid arms|||ripping apart, ripping arms off|
-24|Obi-Wan Kenobi|collapsing into nothing|cloak||||
-25|Yoda|poking disapprovingly|cane|||poking|
-26|Admiral Ackbar|frantically shouting|bear trap|||frantic shouting|
-27|Boba Fett|getting eaten by Sarlacc|jetpack||||
-28|Darth Vader|heavy breathing|black helmet|||difficulty breathing|
-29|Darth Maul|growing horns from head|double sided red lightsaber||||
-30|E.T.C.|sliding around|guitar||etc, Elite Tauren Chieftain||
-31|Valla|somersault|hand crossbow|||somersaulting|
-32|Malfurion|feet entangled|vines|||entangling feet|
-33|Falstad|flying|gryphon|||flying on|griffin
-34|Nova|cloaking|sniper rifle||||
-35|Tychus|drop from sky|giant mech||||mech suit, mech
-36|Kerrigan|commanding army|zerglings|||leading army, leading an army|
-37|Onyxia|hatching from egg|baby dragons|||eggs hatching|dragon eggs
-38|Illidan|multiple blinks in succession|twin curved blades|||blinking multiple times, multiple blinks|twin blades
-39|The Butcher|charging like a bull|giant cleaver||butcher|getting yanked away|
-40|Zeus|football throwing|lightning bolt||||
-41|Aphrodite|flirting|giant heart pillow|||giggling|giant heart
-42|Hades|writing at desk|paperwork|||writing|reports
-43|Cerberus|sloppily eating meal|bag of dog food|||eating, eating meal|dog food
-44|Dusa|dusting|feather duster|||cleaning|duster
-45|Atticus O'Sullivan|steeping tea|iron amulet necklace||atticus osullivan|drinking tea, sipping tea, making tea|iron necklace amulet
-46|Oberon|ogling poodles|sausages||||
-47|Leif Helgarson|drinking fancy glass of blood|coffin||vampire||
-48|The Morrigan|transforming (smaller)|crow|||transforming smaller|
-49|Jesus|holding hand over eyes|sunglasses|||blinding, blinded, covering eyes, shielding eyes, covering face with hand|
-50|Sonic|running at extreme speed|big golden ring|||running super fast, running very fast|golden ring, giant gold ring
-51|Tails|hovering|twin tails|||hovering like a helicopter, helicopter hovering|
-52|Mario|jumping on|mushroom||||mushrooms
-53|Kirby|wide mouth inhaling|brick|||inhaling, sucking|
-54|Donkey Kong|carrying overhead|wooden barrel||||barrel
-55|Master Chief|driving warthog|machine gun|||driving, driving over hills, driving over hills in warthog|mg
-56|Grunt|running around wildly|sticky grenade||||
-57|Spyro|gliding like a bird|shiny green gems|||gliding|shiny gems
-58|Ryu|spinny kick|red headband|||spinny kicking|red hairband
-59|Solid Snake|sneaking|cardboard box||||"
+00 | bill the pony      | trotting like a horse         | saddle                      | 0 | bill                        |                                                                           | saddlebags                     | saddle
+01 | frodo              | hiding under                  | giant log                   | 1 |                             |                                                                           |                                | giant log
+02 | samwise            | stirring pot                  | potatoes                    | 2 | sam                         | cooking                                                                   |                                | potatoes
+03 | pippin             | knocking over into well       | bucket                      | 3 |                             |                                                                           |                                | bucket
+04 | gandalf            | whispering to butterfly       | staff                       | 4 |                             | whispering in another language to butterfly                               |                                | staff
+05 | legolas            | sliding down stairs on shield | bow                         | 5 |                             |                                                                           |                                | bow
+06 | gimli              | overhead swinging             | axe                         | 6 |                             | overhead chopping                                                         |                                | axe
+07 | boromir            | blowing into                  | horn of gondor              | 7 |                             |                                                                           |                                | horn of gondor
+08 | gollum             | pawing at                     | the one ring                | 8 |                             | clawing at                                                                |                                | the one ring
+09 | sauron             | staring from a high place     | eye of sauron               | 9 |                             |                                                                           |                                | eye of sauron
+10 | bulbasaur          | growing vines from body       | razor sharp leaves          |   |                             |                                                                           |                                | razor sharp leaves
+11 | charmander         | exhaling                      | stream of fire              |   |                             |                                                                           |                                | stream of fire
+12 | abra               | teleporting away scared       | spoon                       |   |                             | teleporting away                                                          |                                | spoon
+13 | mr. mime           | miming                        | invisible wall              |   | mr mime                     |                                                                           |                                | invisible wall
+14 | snorlax            | napping                       | road                        |   |                             | sleeping                                                                  |                                | road
+15 | goku               | hands above head              | spirit bomb                 |   |                             | holding hands above head                                                  |                                | spirit bomb
+16 | gohan              | transforming (bigger)         | giant monkey                |   |                             |                                                                           | giant gorilla, monkey, gorilla | giant monkey
+17 | krillin            | frisbee throwing              | destructo disc              |   |                             |                                                                           | destructo disk                 | destructo disc
+18 | hercule            | giant crazy grin              | champions belt              |   |                             | giant grin                                                                |                                | champions belt
+19 | master roshi       | lazily reading                | dirty japanese magazine     |   |                             |                                                                           |                                | dirty japanese magazine
+20 | luke skywalker     | deflecting blaster shot       | green lightsaber            |   |                             | deflecting laser shots                                                    |                                | green lightsaber
+21 | r2-d2              | making robot beeping noises   | hologram                    |   |                             | making robot beeping noise                                                |                                | hologram
+22 | han solo           | shooting laser blaster        | millennium falcon           |   |                             |                                                                           |                                | millennium falcon
+23 | chewbacca          | ripping part off              | droid arms                  |   |                             | ripping apart, ripping arms off                                           |                                | droid arms
+24 | obi-wan kenobi     | collapsing into nothing       | cloak                       |   |                             |                                                                           |                                | cloak
+25 | yoda               | poking disapprovingly         | cane                        |   |                             | poking                                                                    |                                | cane
+26 | admiral ackbar     | frantically shouting          | bear trap                   |   |                             | frantic shouting                                                          |                                | bear trap
+27 | boba fett          | getting eaten by sarlacc      | jetpack                     |   |                             |                                                                           |                                | jetpack
+28 | darth vader        | heavy breathing               | black helmet                |   |                             | difficulty breathing                                                      |                                | black helmet
+29 | darth maul         | growing horns from head       | double sided red lightsaber |   |                             |                                                                           |                                | double sided red lightsaber
+30 | e.t.c.             | sliding around                | guitar                      |   | etc, elite tauren chieftain |                                                                           |                                | guitar
+31 | valla              | somersault                    | hand crossbow               |   |                             | somersaulting                                                             |                                | hand crossbow
+32 | malfurion          | feet entangled                | vines                       |   |                             | entangling feet                                                           |                                | vines
+33 | falstad            | flying                        | gryphon                     |   |                             | flying on                                                                 | griffin                        | gryphon
+34 | nova               | cloaking                      | sniper rifle                |   |                             |                                                                           |                                | sniper rifle
+35 | tychus             | drop from sky                 | giant mech                  |   |                             |                                                                           | mech suit, mech                | giant mech
+36 | kerrigan           | commanding army               | zerglings                   |   |                             | leading army, leading an army                                             |                                | zerglings
+37 | onyxia             | hatching from egg             | baby dragons                |   |                             | eggs hatching                                                             | dragon eggs                    | baby dragons
+38 | illidan            | multiple blinks in succession | twin curved blades          |   |                             | blinking multiple times, multiple blinks                                  | twin blades                    | twin curved blades
+39 | the butcher        | charging like a bull          | giant cleaver               |   | butcher                     | getting yanked away                                                       |                                | giant cleaver
+40 | zeus               | football throwing             | lightning bolt              |   |                             |                                                                           |                                | lightning bolt
+41 | aphrodite          | flirting                      | giant heart pillow          |   |                             | giggling                                                                  | giant heart                    | giant heart pillow
+42 | hades              | writing at desk               | paperwork                   |   |                             | writing                                                                   | reports                        | paperwork
+43 | cerberus           | sloppily eating meal          | bag of dog food             |   |                             | eating, eating meal                                                       | dog food                       | bag of dog food
+44 | dusa               | dusting                       | feather duster              |   |                             | cleaning                                                                  | duster                         | feather duster
+45 | atticus o'sullivan | steeping tea                  | iron amulet necklace        |   | atticus osullivan           | drinking tea, sipping tea, making tea                                     | iron necklace amulet           | iron amulet necklace
+46 | oberon             | ogling poodles                | sausages                    |   |                             |                                                                           |                                | sausages
+47 | leif helgarson     | drinking fancy glass of blood | coffin                      |   | vampire                     |                                                                           |                                | coffin
+48 | the morrigan       | transforming (smaller)        | crow                        |   |                             | transforming smaller                                                      |                                | crow
+49 | jesus              | holding hand over eyes        | sunglasses                  |   |                             | blinding, blinded, covering eyes, shielding eyes, covering face with hand |                                | sunglasses
+50 | sonic              | running at extreme speed      | big golden ring             |   |                             | running super fast, running very fast                                     | golden ring, giant gold ring   | big golden ring
+51 | tails              | hovering                      | twin tails                  |   |                             | hovering like a helicopter, helicopter hovering                           |                                | twin tails
+52 | mario              | jumping on                    | mushroom                    |   |                             |                                                                           | mushrooms                      | mushroom
+53 | kirby              | wide mouth inhaling           | brick                       |   |                             | inhaling, sucking                                                         |                                | brick
+54 | donkey kong        | carrying overhead             | wooden barrel               |   |                             |                                                                           | barrel                         | wooden barrel
+55 | master chief       | driving warthog               | machine gun                 |   |                             | driving, driving over hills, driving over hills in warthog                | mg                             | machine gun
+56 | grunt              | running around wildly         | sticky grenade              |   |                             |                                                                           |                                | sticky grenade
+57 | spyro              | gliding like a bird           | shiny green gems            |   |                             | gliding                                                                   | shiny gems                     | shiny green gems
+58 | ryu                | spinny kick                   | red headband                |   |                             | spinny kicking                                                            | red hairband                   | red headband
+59 | solid snake        | sneaking                      | cardboard box               |   |                             |                                                                           |                                | cardboard box

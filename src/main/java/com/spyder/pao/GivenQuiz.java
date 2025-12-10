@@ -131,7 +131,9 @@ public class GivenQuiz {
             List<String> possibleAnswerTokens = Arrays.asList(possibleAnswer.split(" "));
             int correctWords = 0;
             for (String userAnswerToken : userAnswerTokens) {
-                correctWords += possibleAnswerTokens.contains(userAnswerToken.toLowerCase()) ? 1 : 0;
+                boolean wordMatches = possibleAnswerTokens.stream()
+                        .anyMatch(possibleToken -> isWordCloseEnough(userAnswerToken, possibleToken));
+                correctWords += wordMatches ? 1 : 0;
             }
             int newWrongWords = Math.max(possibleAnswerTokens.size(), userAnswerTokens.length) - correctWords;
             if (correctWords > bestCorrectWords || (correctWords == bestCorrectWords && newWrongWords < wrongWords)) {
@@ -154,6 +156,64 @@ public class GivenQuiz {
             entries = entries.stream().filter(entryType -> entryType != excludingType).toList();
         }
         return entries.get(random.nextInt(entries.size()));
+    }
+
+    /**
+     * Checks if two words are close enough to be considered a match.
+     * Returns true if words are exactly equal (case-insensitive) or have an edit distance of 1.
+     * Edit distance of 1 means: one character added, removed, or substituted.
+     */
+    private boolean isWordCloseEnough(String userWord, String targetWord) {
+        String user = userWord.toLowerCase();
+        String target = targetWord.toLowerCase();
+
+        // Exact match
+        if (user.equals(target)) {
+            return true;
+        }
+
+        int lenDiff = Math.abs(user.length() - target.length());
+
+        // Edit distance can't be 1 if length difference is > 1
+        if (lenDiff > 1) {
+            return false;
+        }
+
+        // Check for edit distance of 1
+        if (lenDiff == 0) {
+            // Same length - check for one substitution
+            int differences = 0;
+            for (int i = 0; i < user.length(); i++) {
+                if (user.charAt(i) != target.charAt(i)) {
+                    differences++;
+                    if (differences > 1) {
+                        return false;
+                    }
+                }
+            }
+            return differences == 1;
+        } else {
+            // Length differs by 1 - check for one insertion/deletion
+            String shorter = user.length() < target.length() ? user : target;
+            String longer = user.length() < target.length() ? target : user;
+
+            int i = 0, j = 0;
+            boolean foundDifference = false;
+
+            while (i < shorter.length() && j < longer.length()) {
+                if (shorter.charAt(i) != longer.charAt(j)) {
+                    if (foundDifference) {
+                        return false;
+                    }
+                    foundDifference = true;
+                    j++; // Skip character in longer string
+                } else {
+                    i++;
+                    j++;
+                }
+            }
+            return true;
+        }
     }
 
 }
