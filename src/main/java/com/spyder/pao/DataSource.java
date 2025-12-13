@@ -73,32 +73,6 @@ public class DataSource {
         }
     }
 
-    @SneakyThrows
-    public void writeEquallySpaced() {
-        String fileLocation = RESOURCES_DIR + "/" + DATA_FILE;
-        FileWriter myWriter = new FileWriter(fileLocation);
-        myWriter.write(equallySpacedCsv());
-        myWriter.close();
-    }
-
-    private String equallySpacedCsv() {
-        int[] maxColumnLengths = new int[COLUMNS];
-        StringBuilder sb = new StringBuilder();
-        // Find the max length for any value in a given column
-        for(PaoEntry entry : entries) {
-            for(int i = 0; i < COLUMNS; i++) {
-                maxColumnLengths[i] = Math.max(maxColumnLengths[i], getCsvValue(entry, i).length());
-            }
-        }
-        // Write data file, padding a value with spaces based on the max length for that column
-        for(PaoEntry entry : entries) {
-            for(int i = 0; i < COLUMNS; i++) {
-                sb.append(padRight(getCsvValue(entry, i), maxColumnLengths[i] + 1)).append(DELIMITER).append(" ");
-            }
-            sb.append(entry.getObject()).append("\n");
-        }
-        return sb.toString();
-    }
 
     private void setCsvValue(PaoEntry entry, int column, String value) {
         value = value.toLowerCase();
@@ -129,8 +103,5 @@ public class DataSource {
         };
     }
 
-    public static String padRight(String s, int n) {
-        return String.format("%-" + n + "s", s);
-    }
 
 }
